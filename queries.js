@@ -51,15 +51,10 @@ const createTasks = (request, response) => {
         throw error
     }
 
-    response.status(201).send('Task added with ID: ${result.rows[0].id}');
+    response.status(201).json({ id: result.rows[0].id });
   });
   
 }
-
-
-
-
-
 
 module.exports = {
   getTasks,
