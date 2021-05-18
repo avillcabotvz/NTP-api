@@ -1,12 +1,4 @@
-const Pool = require('pg').Pool
-const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'ntp_projekt',
-  password: 'root',
-  port: 5432,
-})
-
+const pool = require('./dbConnection');
 
 const deleteTask = (request, response) => {
   const id = parseInt(request.params.id)
@@ -22,5 +14,4 @@ const deleteTask = (request, response) => {
 
 module.exports = {
   deleteTask,
-
 }

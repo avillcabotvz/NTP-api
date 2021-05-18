@@ -1,11 +1,4 @@
-const Pool = require('pg').Pool
-const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'ntp_projekt',
-  password: 'root',
-  port: 5432,
-})
+const pool = require('./dbConnection');
 
 const getTasks = (request, response) => {
   pool.query('SELECT tasks.id,taskname,taskdesc,startdate,enddate,status.status,categories.category,person.firstname,person.lastname FROM tasks INNER JOIN status ON statusid=status.id INNER JOIN categories ON categoryid=categories.id INNER JOIN person ON personid=person.id', (error, results) => {
@@ -51,15 +44,10 @@ const createTasks = (request, response) => {
         throw error
     }
 
-    response.status(201).send('Task added with ID: ${result.rows[0].id}');
+    response.status(201).json({ id: result.rows[0].id });
   });
   
 }
-
-
-
-
-
 
 module.exports = {
   getTasks,

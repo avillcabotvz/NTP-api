@@ -1,11 +1,4 @@
-const Pool = require('pg').Pool
-const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'ntp_projekt',
-  password: 'root',
-  port: 5432,
-})
+const pool = require('./dbConnection');
 
 const createTasks = (request, response) => {
   const {taskname,taskdesc,startdate,enddate,categoryid,statusid,personid} = request.body
@@ -15,7 +8,7 @@ const createTasks = (request, response) => {
         throw error
     }
 
-    response.status(201).send(`Task added with ID: ${result.rows[0].id}`);
+    response.status(201).json({ id: result.rows[0].id });
   });
 }
 
@@ -27,7 +20,7 @@ const createStatus = (request, response) => {
         throw error
     }
 
-    response.status(201).send(`Status added with ID: ${result.rows[0].id}`);
+    response.status(201).json({ id: result.rows[0].id });
   });
 }
 
@@ -39,7 +32,7 @@ const createCategory = (request, response) => {
         throw error
     }
 
-    response.status(201).send(`Category added with ID: ${result.rows[0].id}`);
+    response.status(201).json({ id: result.rows[0].id });
   });
 }
 
@@ -51,13 +44,9 @@ const createPerson= (request, response) => {
         throw error
     }
 
-    response.status(201).send(`Person added with ID: ${result.rows[0].id}`);
+    response.status(201).json({ id: result.rows[0].id });
   });
 }
-
-
-
-
 
 module.exports = {
   createTasks,
