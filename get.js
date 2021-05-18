@@ -43,28 +43,9 @@ const getPerson = (request, response) => {
   })
 }
 
-const createTasks = (request, response) => {
-  const {taskname,taskdesc,startdate,enddate,categoryid,statusid,personid} = request.body
-
-  pool.query('INSERT INTO tasks(taskname,taskdesc,startdate,enddate,categoryid,statusid,personid) VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING id', [taskname,taskdesc,startdate,enddate,categoryid,statusid,personid], (error, result) => {
-    if (error) {
-        throw error
-    }
-
-    response.status(201).send('Task added with ID: ${result.rows[0].id}');
-  });
-  
-}
-
-
-
-
-
-
 module.exports = {
   getTasks,
   getCategories,
   getStatus,
   getPerson,
-  createTasks,
 }
