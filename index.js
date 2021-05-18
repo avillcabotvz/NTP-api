@@ -8,7 +8,7 @@ const port = 2000
 
 var cors = require('cors')
 
-app.use(cors()) 
+app.use(cors())
 
 app.use(bodyParser.json())
 app.use(
