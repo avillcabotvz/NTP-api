@@ -4,6 +4,7 @@ const app = express()
 const getQueries = require('./get')
 const createQueries = require('./create')
 const deleteQueries = require('./delete')
+const updateQueries = require('./update')
 const http = require('http')
 const https = require('https')
 const fs = require('fs');
@@ -32,6 +33,7 @@ app.get('/', (request, response) => {
 app.get('/tasks', checkAuth, getQueries.getTasks)
 app.post('/tasks', checkAuth, createQueries.createTasks)
 app.delete('/tasks/:id', checkAuth, deleteQueries.deleteTask)
+app.put('/users/:id', updateQueries.updateTasks)
 
 
 app.get('/categories', checkAuth, getQueries.getCategories)

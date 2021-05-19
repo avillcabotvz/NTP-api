@@ -2,11 +2,11 @@ const pool = require('./dbConnection');
 
 const updateTasks = (request, response) => {
   const id = parseInt(request.params.id)
-  const { name, email } = request.body
+  const {taskname,taskdesc,startdate,enddate,statusid,categoryid,personid} = request.body
 
   pool.query(
-    'UPDATE users SET name = $1, email = $2 WHERE id = $3',
-    [name, email, id],
+    'UPDATE tasks SET taskname = $1, taskdesc = $2, startdate = $3, enddate= $4, statusid=$5, categoryid=$5, personid=$7 WHERE id = $8',
+    [taskname,taskdesc,startdate,enddate,statusid,categoryid,personid],
     (error, results) => {
       if (error) {
         throw error
