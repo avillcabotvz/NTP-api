@@ -13,7 +13,7 @@ async function getUser(username) {
         WHERE username = $1
     `, [username]);
 
-    return result.rows[0] ?? null;
+    return result.rows[0] || null;
 }
 
 async function createUser(username, password) {
