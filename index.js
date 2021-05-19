@@ -4,15 +4,14 @@ const app = express()
 const getQueries = require('./get')
 const createQueries = require('./create')
 const deleteQueries = require('./delete')
-const port = 2000
-const fs = require('fs')
-var http = require('http');
-var https = require('https');
-var privateKey  = fs.readFileSync('./ssl/localhost.key', 'utf8');
-var certificate = fs.readFileSync('./ssl/localhost.crt', 'utf8');
+const http = require('http')
+const https = require('https')
+const fs = require('fs');
+const httpPort = 2000
+const httpsPort = 2443
 
-var credentials = {key: privateKey, cert: certificate};
-
+const privateKey  = fs.readFileSync('certs/localhost.key', 'utf8');
+const certificate = fs.readFileSync('certs/localhost.crt', 'utf8');
 
 var cors = require('cors')
 const { checkAuth, handleLogin } = require('./auth')
@@ -46,12 +45,12 @@ app.post('/person', checkAuth, createQueries.createPerson)
 
 app.post('/login', handleLogin);
 
-app.listen(port, () => {
-  console.log(`App running on port ${port}.`)
-})
+const httpServer = http.createServer(app);
+const httpsServer = https.createServer({ key: privateKey, cert: certificate }, app);
 
-var httpServer = http.createServer(app);
-var httpsServer = https.createServer(credentials, app);
-
-httpServer.listen(8080);
-httpsServer.listen(8443);
+httpServer.listen(httpPort, () => {
+  console.log(`App running on http://localhost:${httpPort}`);
+});
+httpsServer.listen(httpsPort, () => {
+  console.log(`App running on https://localhost:${httpsPort}`);
+});
