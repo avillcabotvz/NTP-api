@@ -1,6 +1,7 @@
-const pool = require('./dbConnection');
-const { createUser, getUser, setUserPassword } = require('./users');
+const pool = require('./src/dbConnection');
+const { createUser, getUser, setUserPassword } = require('./src/users');
 
+console.log('NANI?', process.argv);
 // Get command line arguments. First 2 will be "node" and "/whatever/file/path" so take everything after that
 const processArgs = process.argv.slice(2);
 
@@ -49,7 +50,7 @@ async function setUserPasswordCmd(args) {
     }
 
     const [username, password] = args;
-    await setUserPasswordCmd(username, password);
+    await setUserPassword(username, password);
     console.log('User password updated!');
     pool.end();
 }
@@ -59,7 +60,7 @@ switch (command) {
         addUserCmd(args);
         break;
     case 'set-user-password':
-        setUserPasswordCmd();
+        setUserPasswordCmd(args);
         break;
     default:
         dieWrongUsage(`Unknown command ${command}`);

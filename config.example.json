@@ -1,0 +1,13 @@
+{
+    "database": {
+        "user": "postgres",
+        "host": "localhost",
+        "database": "ntp_projekt",
+        "password": "root",
+        "port": 5432
+    },
+    "http": {
+        "httpPort": 2000,
+        "httpsPort": 2443
+    }
+}

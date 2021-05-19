@@ -2,4 +2,5 @@
 # ignore the file literally named WIPindes
 node_modules
 certs/*
+config.json
 !.gitkeep

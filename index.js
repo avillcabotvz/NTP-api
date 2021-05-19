@@ -1,21 +1,24 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
-const getQueries = require('./get')
-const createQueries = require('./create')
-const deleteQueries = require('./delete')
-const updateQueries = require('./update')
+const getQueries = require('./src/get')
+const createQueries = require('./src/create')
+const deleteQueries = require('./src/delete')
+const updateQueries = require('./src/update')
 const http = require('http')
 const https = require('https')
 const fs = require('fs');
-const httpPort = 2000
-const httpsPort = 2443
+
+const httpConfig = require('./src/config').http || {};
+
+const httpPort = httpConfig.httpPort || 2000
+const httpsPort = httpConfig.httpsPort || 2443
 
 const privateKey  = fs.readFileSync('certs/localhost.key', 'utf8');
 const certificate = fs.readFileSync('certs/localhost.crt', 'utf8');
 
 var cors = require('cors')
-const { checkAuth, handleLogin } = require('./auth')
+const { checkAuth, handleLogin } = require('./src/auth')
 
 app.use(cors())
 
