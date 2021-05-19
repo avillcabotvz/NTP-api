@@ -2,7 +2,7 @@ const Pool = require('pg').Pool;
 
 // Make a frikin' config file
 const pool = new Pool({
-  user: 'postgres',
+  user: 'ntp_projekt',
   host: 'localhost',
   database: 'ntp_projekt',
   password: 'root',
