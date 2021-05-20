@@ -36,7 +36,7 @@ app.get('/', (request, response) => {
 app.get('/tasks', checkAuth, getQueries.getTasks)
 app.post('/tasks', checkAuth, createQueries.createTasks)
 app.delete('/tasks/:id', checkAuth, deleteQueries.deleteTask)
-app.put('/users/:id', updateQueries.updateTasks)
+app.put('/tasks/:id', updateQueries.updateTasks)
 
 
 app.get('/categories', checkAuth, getQueries.getCategories)
