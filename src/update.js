@@ -19,7 +19,7 @@ const updateTasks = async (request, response) => {
     [taskname, taskdesc, startdate, enddate, statusid, categoryid, personid, id]
   );
 
-  response.status(200).send(`User modified with ID: ${id}`);
+  response.status(200).send(`Task modified with ID: ${id}`);
 }
 
 
