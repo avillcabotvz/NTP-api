@@ -6,7 +6,7 @@ const getTasks = (request, response) => {
   if (request.query.search) {
     const searchStr = request.query.search.trim();
     params = [`%${searchStr}%`];
-    where = 'WHERE taskname ILIKE $1';
+    where = 'WHERE taskname ILIKE $1 OR status.status ILIKE $1 OR categories.category ILIKE $1';
   }
 
   const sql = `
