@@ -8,6 +8,7 @@ const updateQueries = require('./src/update')
 const http = require('http')
 const https = require('https')
 const fs = require('fs');
+const { tcpSrv } = require('./src/tcp-server');
 
 const httpConfig = require('./src/config').http || {};
 
@@ -19,6 +20,7 @@ const certificate = fs.readFileSync('certs/localhost.crt', 'utf8');
 
 var cors = require('cors')
 const { checkAuth, handleLogin } = require('./src/auth')
+const { udp4Srv, udp6Srv } = require('./src/udp-server')
 
 app.use(cors())
 
@@ -33,7 +35,7 @@ app.get('/', (request, response) => {
   response.json({ info: 'NTP Projekt REST API' })
 })
 
-app.get('/tasks', checkAuth, getQueries.getTasks)
+app.get('/tasks', checkAuth, getQueries.listTasks)
 app.post('/tasks', checkAuth, createQueries.createTasks)
 app.delete('/tasks/:id', checkAuth, deleteQueries.deleteTask)
 app.put('/tasks/:id', updateQueries.updateTasks)
@@ -59,3 +61,7 @@ httpServer.listen(httpPort, () => {
 httpsServer.listen(httpsPort, () => {
   console.log(`App running on https://localhost:${httpsPort}`);
 });
+
+tcpSrv.listen(42000);
+udp4Srv.bind(42000);
+udp6Srv.bind(42000);

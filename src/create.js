@@ -1,4 +1,5 @@
 const pool = require('./dbConnection');
+const { broadcast } = require('./udp-server');
 
 const createTasks = (request, response) => {
   const {taskname,taskdesc,startdate,enddate,categoryid,statusid,personid} = request.body
@@ -8,7 +9,9 @@ const createTasks = (request, response) => {
         throw error
     }
 
-    response.status(201).json({ id: result.rows[0].id });
+    const id = result.rows[0].id;
+    response.status(201).json({ id });
+    broadcast(`NEWTASK ${id}`);
   });
 }
 
